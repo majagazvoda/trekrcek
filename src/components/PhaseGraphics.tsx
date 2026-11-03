@@ -23,14 +23,14 @@ interface FertileWheelProps {
 
 /**
  * A ring for the whole cycle (day 1 at the top, clockwise) that only marks
- * the fertile window in lime and the estimated ovulation day in green.
+ * the fertile window in light lime and the estimated ovulation day in stronger lime.
  */
 export function FertileWheel({ cycleLength, title, subtitle }: FertileWheelProps) {
   const L = Math.max(18, Math.min(50, Math.round(cycleLength)));
   const perDay = 360 / L;
   const ovulationOffset = L - 14; // same estimate as the calendar
-  const fertileStart = (ovulationOffset - 4) * perDay;
-  const fertileEnd = (ovulationOffset + 3) * perDay;
+  const fertileStart = (ovulationOffset - 5) * perDay;
+  const fertileEnd = (ovulationOffset + 2) * perDay;
   const ovStart = ovulationOffset * perDay;
   const ovEnd = (ovulationOffset + 1) * perDay;
 

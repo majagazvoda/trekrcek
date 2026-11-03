@@ -2341,30 +2341,43 @@ input:focus-visible {
   stroke-width: 22;
 }
 
-.fertile-legend {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 5px;
-  font-size: 0.8125em;
-  font-weight: 500;
-  color: rgb(var(--text-rgb));
-  margin-bottom: var(--sp-s);
+/* =====================================================
+ * Fertility colours
+ * Full fertile window: light lime. Ovulation day: stronger lime.
+ * ===================================================== */
+
+.wheel-fertile { stroke: rgba(var(--lime-rgb), 0.45); stroke-linecap: butt; }
+.wheel-ovulation { stroke: var(--color-lime); }
+
+.calendar-day.fertile {
+  background: rgba(var(--lime-rgb), 0.4);
+  color: rgb(var(--green-rgb));
 }
 
-.fertile-legend .separator {
-  color: rgba(var(--text-secondary-rgb), 0.5);
-  margin: 0 2px;
+.calendar-day.ovulation {
+  background: var(--color-lime);
+  color: rgb(var(--green-rgb));
+  font-weight: 700;
 }
 
-.fertile-dot,
-.ovulation-dot {
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
+.calendar-day.predicted-fertile {
+  background: rgba(var(--lime-rgb), 0.25);
+  color: rgb(var(--green-rgb));
 }
 
-.fertile-dot { background: var(--color-lime); border: 1px solid rgba(var(--green-rgb), 0.35); }
-.ovulation-dot { background: rgb(var(--green-rgb)); }
+.calendar-day.predicted-ovulation {
+  background: rgba(var(--lime-rgb), 0.75);
+  color: rgb(var(--green-rgb));
+  font-weight: 700;
+}
+
+.legend-dot.fertile,
+.dot-fertile {
+  background: rgba(var(--lime-rgb), 0.5);
+}
+
+.legend-dot.ovulation,
+.dot-ovulation {
+  background: var(--color-lime);
+  box-shadow: inset 0 0 0 1px rgba(var(--green-rgb), 0.45);
+}
