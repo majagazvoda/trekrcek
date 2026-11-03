@@ -1,6 +1,7 @@
 import {
   parseISO,
   addDays,
+  subDays,
   eachDayOfInterval,
   min as dateMin,
   startOfDay,
@@ -16,6 +17,15 @@ export interface CalendarDateSets {
   futureFertilityDates: Set<string>;
   pastOvulationDates: Set<string>;
   futureOvulationDates: Set<string>;
+}
+
+/**
+ * Days marked around ovulation in the calendar:
+ * 2 days before, the estimated ovulation day, and 2 days after.
+ */
+function ovulationWindow(ovulationDay: string): Date[] {
+  const ov = parseISO(ovulationDay);
+  return eachDayOfInterval({ start: subDays(ov, 2), end: addDays(ov, 2) });
 }
 
 export function buildDateSets(
@@ -52,10 +62,7 @@ export function buildDateSets(
   const cycles = buildCycleHistory(periods, prediction);
   for (const c of cycles) {
     if (!c.fertility) continue;
-    eachDayOfInterval({
-      start: parseISO(c.fertility.fertileStart),
-      end: parseISO(c.fertility.fertileEnd),
-    }).forEach((d) => {
+    ovulationWindow(c.fertility.ovulationDay).forEach((d) => {
       const key = toDateString(d);
       if (!periodDates.has(key)) pastFertilityDates.add(key);
     });
@@ -68,10 +75,7 @@ export function buildDateSets(
   const futureOvulationDates = new Set<string>();
   for (const fc of futureCycles) {
     if (!fc.fertility) continue;
-    eachDayOfInterval({
-      start: parseISO(fc.fertility.fertileStart),
-      end: parseISO(fc.fertility.fertileEnd),
-    }).forEach((d) => {
+    ovulationWindow(fc.fertility.ovulationDay).forEach((d) => {
       const key = toDateString(d);
       if (key >= todayStr && !periodDates.has(key) && !pastFertilityDates.has(key)) {
         futureFertilityDates.add(key);

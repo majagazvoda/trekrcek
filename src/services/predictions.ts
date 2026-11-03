@@ -1,4 +1,4 @@
-import { addDays, subDays, differenceInDays, parseISO, format } from 'date-fns';
+import { addDays, subDays, differenceInDays, parseISO, format, startOfDay } from 'date-fns';
 import type { Period, CyclePrediction, FertilityWindow, CycleInfo, FutureCycle, PhaseInfo } from '../types';
 
 function weightedAverage(values: number[], maxCount: number): number {
@@ -127,8 +127,10 @@ export function getDayOfCycle(
   // Use pre-computed prediction if provided, otherwise compute
   const pred = prediction !== undefined ? prediction : predictNextPeriod(periods);
   const total = pred?.avgCycleLength ?? 28;
+  // Compare whole days (midnight to midnight), otherwise the time of day
+  // makes the count one day short
   const daysUntilNext = pred
-    ? differenceInDays(parseISO(pred.predictedStart), today)
+    ? differenceInDays(parseISO(pred.predictedStart), startOfDay(today))
     : null;
 
   // Data is stale if cycle day exceeds 2x predicted cycle length
