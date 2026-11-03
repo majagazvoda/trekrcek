@@ -1,7 +1,9 @@
-import { parseISO, formatDistanceToNow } from 'date-fns';
+import { parseISO, formatDistanceToNow, format, isBefore, startOfDay } from 'date-fns';
 import { usePeriodStore } from '../stores/periodStore';
 import { useI18n } from '../i18n/context';
-import { CycleWheel } from './PhaseGraphics';
+import { FertileWheel } from './PhaseGraphics';
+import { estimateFertilityWindow } from '../services/predictions';
+import { PHASE_GUIDE } from '../data/phaseGuide';
 
 interface Props {
   dimmed?: boolean;
@@ -79,19 +81,40 @@ export default function PhaseStatus({ dimmed, onOpenGuide }: Props) {
     }
   }
 
+  // Fertile window for this cycle (or the next one, if this one has passed)
+  const cycleLength = Math.round(prediction.avgCycleLength);
+  let fertile = cycleDay ? estimateFertilityWindow(cycleDay.lastPeriodDate, cycleLength) : null;
+  if (fertile && isBefore(parseISO(fertile.fertileEnd), startOfDay(new Date()))) {
+    fertile = estimateFertilityWindow(prediction.predictedStart, cycleLength);
+  }
+  const short = (iso: string) => format(parseISO(iso), 'MMM d');
+
+  const wheel = phase ? (
+    <FertileWheel
+      cycleLength={cycleLength}
+      title={PHASE_GUIDE[phase.phase].short}
+      subtitle={onOpenGuide ? 'Tap for more' : t(phaseKey)}
+    />
+  ) : null;
+
   return (
     <div className="phase-status">
-      {phase ? (
-        onOpenGuide ? (
-          <button className="home-wheel-btn" onClick={onOpenGuide} aria-label={`${t(phaseKey)} — open phase guide`}>
-            <CycleWheel selected={phase.phase} current={phase.phase} subtitle="Tap for more" />
-          </button>
-        ) : (
-          <div className="home-wheel-btn">
-            <CycleWheel selected={phase.phase} current={phase.phase} subtitle={t(phaseKey)} />
-          </div>
-        )
-      ) : null}
+      {wheel && (onOpenGuide ? (
+        <button className="home-wheel-btn" onClick={onOpenGuide} aria-label={`${t(phaseKey)}, open phase guide`}>
+          {wheel}
+        </button>
+      ) : (
+        <div className="home-wheel-btn">{wheel}</div>
+      ))}
+      {wheel && fertile && (
+        <div className="fertile-legend">
+          <span className="fertile-dot" />
+          Fertile {short(fertile.fertileStart)}–{short(fertile.fertileEnd)}
+          <span className="separator"> · </span>
+          <span className="ovulation-dot" />
+          Ovulation ~{short(fertile.ovulationDay)}
+        </div>
+      )}
       <div className="phase-detail">
         {cycleDay && (
           <>

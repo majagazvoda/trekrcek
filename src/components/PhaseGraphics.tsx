@@ -1,16 +1,6 @@
 import type { CyclePhase } from '../types';
-import { PHASE_ORDER, PHASE_GUIDE } from '../data/phaseGuide';
 
-/* ---------- Cycle wheel ---------- */
-
-// Display proportions of a typical 28-day cycle
-const WHEEL_DAYS: Record<CyclePhase, number> = {
-  menstrual: 5,
-  follicular: 8,
-  ovulation: 3,
-  luteal: 8,
-  premenstrual: 4,
-};
+/* ---------- Fertility wheel ---------- */
 
 function polar(cx: number, cy: number, r: number, deg: number) {
   const a = ((deg - 90) * Math.PI) / 180;
@@ -24,41 +14,33 @@ function arcPath(cx: number, cy: number, r: number, start: number, end: number) 
   return `M ${s.x.toFixed(2)} ${s.y.toFixed(2)} A ${r} ${r} 0 ${large} 1 ${e.x.toFixed(2)} ${e.y.toFixed(2)}`;
 }
 
-interface WheelProps {
-  selected: CyclePhase;
-  current: CyclePhase | null;
-  onSelect?: (phase: CyclePhase) => void;
-  subtitle?: string;
+interface FertileWheelProps {
+  /** Average cycle length in days */
+  cycleLength: number;
+  title: string;
+  subtitle: string;
 }
 
-export function CycleWheel({ selected, current, onSelect, subtitle }: WheelProps) {
-  const total = PHASE_ORDER.reduce((sum, p) => sum + WHEEL_DAYS[p], 0);
-  const gap = 4;
-  let angle = 0;
+/**
+ * A ring for the whole cycle (day 1 at the top, clockwise) that only marks
+ * the fertile window in lime and the estimated ovulation day in green.
+ */
+export function FertileWheel({ cycleLength, title, subtitle }: FertileWheelProps) {
+  const L = Math.max(18, Math.min(50, Math.round(cycleLength)));
+  const perDay = 360 / L;
+  const ovulationOffset = L - 14; // same estimate as the calendar
+  const fertileStart = (ovulationOffset - 4) * perDay;
+  const fertileEnd = (ovulationOffset + 3) * perDay;
+  const ovStart = ovulationOffset * perDay;
+  const ovEnd = (ovulationOffset + 1) * perDay;
 
   return (
-    <svg className="cycle-wheel" viewBox="0 0 200 200" role="group" aria-label="Cycle phases">
-      {PHASE_ORDER.map((phase) => {
-        const sweep = (WHEEL_DAYS[phase] / total) * 360;
-        const start = angle + gap / 2;
-        const end = angle + sweep - gap / 2;
-        angle += sweep;
-        const isSelected = phase === selected;
-        return (
-          <path
-            key={phase}
-            d={arcPath(100, 100, 78, start, end)}
-            className={`wheel-seg wheel-${phase}${isSelected ? ' is-selected' : ''}${onSelect ? '' : ' static'}`}
-            onClick={onSelect ? () => onSelect(phase) : undefined}
-            role={onSelect ? 'button' : undefined}
-            aria-label={onSelect ? PHASE_GUIDE[phase].name : undefined}
-          />
-        );
-      })}
-      <text x="100" y="96" className="wheel-title">{PHASE_GUIDE[selected].short}</text>
-      <text x="100" y="118" className="wheel-sub">
-        {subtitle ?? (current === selected ? 'You are here' : 'Tap a phase')}
-      </text>
+    <svg className="cycle-wheel" viewBox="0 0 200 200" aria-hidden="true">
+      <circle cx="100" cy="100" r="78" className="wheel-track" />
+      <path d={arcPath(100, 100, 78, fertileStart, fertileEnd)} className="wheel-fertile" />
+      <path d={arcPath(100, 100, 78, ovStart + 1, ovEnd - 1)} className="wheel-ovulation" />
+      <text x="100" y="96" className="wheel-title">{title}</text>
+      <text x="100" y="118" className="wheel-sub">{subtitle}</text>
     </svg>
   );
 }

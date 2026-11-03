@@ -2320,3 +2320,51 @@ input:focus-visible {
 .key-info {
   padding-bottom: var(--sp-xl);
 }
+
+/* Fertility wheel on home: only the fertile window is coloured */
+.wheel-track {
+  fill: none;
+  stroke: rgba(var(--text-rgb), 0.08);
+  stroke-width: 22;
+}
+
+.wheel-fertile {
+  fill: none;
+  stroke: var(--color-lime);
+  stroke-width: 22;
+  stroke-linecap: round;
+}
+
+.wheel-ovulation {
+  fill: none;
+  stroke: rgb(var(--green-rgb));
+  stroke-width: 22;
+}
+
+.fertile-legend {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 5px;
+  font-size: 0.8125em;
+  font-weight: 500;
+  color: rgb(var(--text-rgb));
+  margin-bottom: var(--sp-s);
+}
+
+.fertile-legend .separator {
+  color: rgba(var(--text-secondary-rgb), 0.5);
+  margin: 0 2px;
+}
+
+.fertile-dot,
+.ovulation-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.fertile-dot { background: var(--color-lime); border: 1px solid rgba(var(--green-rgb), 0.35); }
+.ovulation-dot { background: rgb(var(--green-rgb)); }
