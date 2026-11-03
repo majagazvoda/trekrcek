@@ -1,6 +1,6 @@
 {
-  "name": "Lua — Period Tracker",
-  "short_name": "Lua",
+  "name": "Trekrček — Period Tracker",
+  "short_name": "Trekrček",
   "description": "Private period tracker. No accounts, no ads, no tracking.",
   "start_url": "/",
   "scope": "/",
