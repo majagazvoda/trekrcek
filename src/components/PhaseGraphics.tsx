@@ -73,17 +73,17 @@ export function PhaseIllustration({ phase }: { phase: CyclePhase }) {
     <svg className={`phase-illustration ill-${phase}`} viewBox="0 0 240 150" aria-hidden="true">
       {phase === 'menstrual' && (
         <>
-          <circle cx="120" cy="75" r="62" className="f-pink-soft" />
+          <circle cx="120" cy="75" r="62" className="f-cream" />
           <path d={drop(120, 74, 34)} className="f-pink" />
           <path d={drop(72, 46, 13)} className="f-wine" />
           <path d={drop(172, 104, 16)} className="f-wine" />
-          <circle cx="110" cy="66" r="7" className="f-cream" />
+          <circle cx="110" cy="66" r="7" className="f-white" />
         </>
       )}
 
       {phase === 'follicular' && (
         <>
-          <circle cx="120" cy="75" r="62" className="f-lime-soft" />
+          <circle cx="120" cy="75" r="62" className="f-cream" />
           <circle cx="182" cy="34" r="14" className="f-sun" />
           <path d="M 120 128 C 120 105, 118 88, 120 66" className="s-green" />
           <ellipse cx="98" cy="78" rx="24" ry="11" transform="rotate(-30 98 78)" className="f-lime" />

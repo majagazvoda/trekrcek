@@ -2262,3 +2262,4 @@ input:focus-visible {
 .f-green-soft { fill: rgba(var(--green-rgb), 0.18); }
 .f-cream { fill: rgb(var(--cream-rgb)); }
 .s-green { fill: none; stroke: rgb(var(--green-rgb)); stroke-width: 5; stroke-linecap: round; }
+.f-white { fill: #fff; opacity: 0.85; }
