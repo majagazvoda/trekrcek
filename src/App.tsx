@@ -13,6 +13,7 @@ import OnboardingCard from './components/OnboardingCard';
 import ScrollCalendar from './components/ScrollCalendar';
 import Settings from './components/Settings';
 import KeyInfo from './components/KeyInfo';
+import PhaseGuide from './components/PhaseGuide';
 import type { PeriodChange } from './components/ScrollCalendar';
 import type { Screen, CalendarViewMode } from './types';
 
@@ -128,6 +129,15 @@ export default function App() {
     );
   }
 
+  // Phase guide screen
+  if (screen === 'guide') {
+    return (
+      <div className="app">
+        <PhaseGuide initialPhase={null} onClose={() => setScreen('home')} />
+      </div>
+    );
+  }
+
   // Key info screen
   if (screen === 'info') {
     return (
@@ -208,7 +218,7 @@ export default function App() {
 
       <div className="app-content">
         {/* Phase status — dimmed when empty */}
-        <PhaseStatus dimmed={isEmpty} />
+        <PhaseStatus dimmed={isEmpty} onOpenGuide={() => setScreen('guide')} />
 
         {/* Calendar — current month, always shown */}
         <HomeCalendar />

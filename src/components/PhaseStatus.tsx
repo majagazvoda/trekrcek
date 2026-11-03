@@ -4,9 +4,21 @@ import { useI18n } from '../i18n/context';
 
 interface Props {
   dimmed?: boolean;
+  onOpenGuide?: () => void;
 }
 
-export default function PhaseStatus({ dimmed }: Props) {
+function GuideLink({ onClick, label }: { onClick: () => void; label: string }) {
+  return (
+    <button className="phase-guide-link" onClick={onClick}>
+      {label}
+      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <polyline points="9 18 15 12 9 6" />
+      </svg>
+    </button>
+  );
+}
+
+export default function PhaseStatus({ dimmed, onOpenGuide }: Props) {
   const cycleDay = usePeriodStore((s) => s.cycleDay);
   const prediction = usePeriodStore((s) => s.prediction);
   const phase = usePeriodStore((s) => s.phase);
@@ -42,6 +54,7 @@ export default function PhaseStatus({ dimmed }: Props) {
           {cycleDay ? t('status.day', { day: cycleDay.day }) : ''}
         </div>
         <div className="phase-detail">{t('status.log_more')}</div>
+        {onOpenGuide && <GuideLink onClick={onOpenGuide} label="Phase guide" />}
       </div>
     );
   }
@@ -84,6 +97,9 @@ export default function PhaseStatus({ dimmed }: Props) {
           </>
         )}
       </div>
+      {onOpenGuide && (
+        <GuideLink onClick={onOpenGuide} label={phase ? 'Read about this phase' : 'Phase guide'} />
+      )}
     </div>
   );
 }
