@@ -5,28 +5,26 @@ interface Message {
   question: string;
 }
 
-const NAME = 'Maja';
-
-const MORNING = [`Good morning, ${NAME}`, `Morning, ${NAME}`, `Hello, ${NAME}`, 'A fresh start'];
-const AFTERNOON = [`Good afternoon, ${NAME}`, `Hi, ${NAME}`, `Hello again, ${NAME}`, 'Halfway through the day'];
-const EVENING = [`Good evening, ${NAME}`, `Hi, ${NAME}`, `Evening, ${NAME}`, 'Time to wind down'];
+const MORNING = ['Good morning', 'Morning', 'Hello there', 'A fresh start'];
+const AFTERNOON = ['Good afternoon', 'Hi there', 'Hello again', 'Halfway through the day'];
+const EVENING = ['Good evening', 'Hi there', 'Evening', 'Time to wind down'];
 
 const ANYTIME: Message[] = [
-  { hello: `Hi, ${NAME}`, question: 'How are you feeling today?' },
-  { hello: `Hello, ${NAME}`, question: 'What does your body need today?' },
-  { hello: `Nice to see you, ${NAME}`, question: 'How is your energy right now?' },
-  { hello: `Welcome back, ${NAME}`, question: 'How did you sleep?' },
-  { hello: `Hey, ${NAME}`, question: 'Have you had some water today?' },
+  { hello: 'Hi there', question: 'How are you feeling today?' },
+  { hello: 'Hello', question: 'What does your body need today?' },
+  { hello: 'Nice to see you', question: 'How is your energy right now?' },
+  { hello: 'Welcome back', question: 'How did you sleep?' },
+  { hello: 'Hey', question: 'Have you had some water today?' },
   { hello: 'Take a breath', question: 'How is your mood at the moment?' },
-  { hello: `You are doing great, ${NAME}`, question: 'What is one kind thing you can do for yourself today?' },
-  { hello: `Hi, ${NAME}`, question: 'Is anything feeling different today?' },
-  { hello: 'Little check-in', question: `How are you, really, ${NAME}?` },
+  { hello: 'You are doing great', question: 'What is one kind thing you can do for yourself today?' },
+  { hello: 'Hi there', question: 'Is anything feeling different today?' },
+  { hello: 'Little check-in', question: 'How are you, really?' },
   { hello: 'Be gentle with yourself', question: 'What would make today a bit easier?' },
-  { hello: `Hello, ${NAME}`, question: 'What made you smile today?' },
+  { hello: 'Hello', question: 'What made you smile today?' },
   { hello: 'One day at a time', question: 'How is your body feeling?' },
-  { hello: `Good to have you here, ${NAME}`, question: 'Have you taken a moment for yourself today?' },
-  { hello: `Hey, ${NAME}`, question: 'Rest or move, what feels right today?' },
-  { hello: `Welcome back, ${NAME}`, question: 'What are you grateful for today?' },
+  { hello: 'Good to have you here', question: 'Have you taken a moment for yourself today?' },
+  { hello: 'Hey', question: 'Rest or move, what feels right today?' },
+  { hello: 'Welcome back', question: 'What are you grateful for today?' },
 ];
 
 const TIME_QUESTIONS = {
