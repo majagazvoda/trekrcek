@@ -17,6 +17,7 @@ import OnboardingCard from './components/OnboardingCard';
 import LanguageSwitcher from './components/LanguageSwitcher';
 import ScrollCalendar from './components/ScrollCalendar';
 import Settings from './components/Settings';
+import KeyInfo from './components/KeyInfo';
 import type { PeriodChange } from './components/ScrollCalendar';
 import type { Screen, CalendarViewMode } from './types';
 
@@ -123,6 +124,15 @@ export default function App() {
     );
   }
 
+  // Key info screen
+  if (screen === 'info') {
+    return (
+      <div className="app">
+        <KeyInfo onClose={() => setScreen('home')} />
+      </div>
+    );
+  }
+
   // Calendar screen (read-only)
   if (screen === 'calendar') {
     return (
@@ -174,6 +184,14 @@ export default function App() {
           <LanguageSwitcher />
         </div>
         <div className="header-date">{format(today, 'd MMMM yyyy', { locale: lang === 'ru' ? ru : undefined })}</div>
+        <div className="header-right">
+        <button className="calendar-icon-btn" onClick={() => setScreen('info')} aria-label={t('info.open')}>
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10" />
+            <line x1="12" y1="16" x2="12" y2="12" />
+            <line x1="12" y1="8" x2="12.01" y2="8" />
+          </svg>
+        </button>
         <button className="calendar-icon-btn" onClick={handleOpenCalendar} aria-label={t('home.cycle_history')}>
           <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
@@ -182,6 +200,7 @@ export default function App() {
             <line x1="3" y1="10" x2="21" y2="10" />
           </svg>
         </button>
+        </div>
       </header>
 
       <div className="app-content">

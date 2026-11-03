@@ -1906,3 +1906,79 @@ input:focus-visible {
     --content-padding: calc(var(--density) * 1.8em);
   }
 }
+
+/* ============= Key Info ============= */
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-xs);
+}
+
+.info-hero {
+  margin: 0 var(--content-padding) var(--sp-m);
+  padding: var(--sp-l);
+  border-radius: 16px;
+  background: rgba(var(--period-rgb), 0.12);
+  text-align: center;
+}
+
+.info-hero-value {
+  font-size: 2.25em;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--color-period);
+}
+
+.info-hero-label {
+  font-size: 0.875em;
+  color: var(--color-text-secondary);
+  margin-top: var(--sp-xs);
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-s);
+  padding: 0 var(--content-padding);
+}
+
+.info-card {
+  padding: var(--sp-m);
+  border-radius: 12px;
+  background: var(--color-surface);
+}
+
+.info-card-value {
+  font-size: 1.375em;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.info-card-label {
+  font-size: 0.8125em;
+  color: var(--color-text-secondary);
+  margin-top: 2px;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--sp-m);
+}
+
+.info-row:hover {
+  background: none;
+}
+
+.info-row-value {
+  color: var(--color-text-secondary);
+  text-align: right;
+}
+
+.info-empty {
+  padding: var(--sp-xl) var(--content-padding);
+  text-align: center;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}

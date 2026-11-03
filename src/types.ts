@@ -63,7 +63,7 @@ export interface FutureCycle {
 }
 
 /** App screen for navigation */
-export type Screen = 'home' | 'calendar' | 'edit' | 'settings';
+export type Screen = 'home' | 'calendar' | 'edit' | 'settings' | 'info';
 
 /** Calendar sub-view */
 export type CalendarViewMode = 'month' | 'year';
