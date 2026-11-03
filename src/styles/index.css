@@ -1,5 +1,7 @@
+@import '@fontsource-variable/rethink-sans';
+
 /*
- * Lua — Design System
+ * Trekrček — Design System
  * Based on: Arutyunov IDS + Birman/Bureau Gorbunov typography
  *
  * Principles:
@@ -1913,4 +1915,126 @@ input:focus-visible {
   display: flex;
   align-items: center;
   gap: var(--sp-xs);
+}
+
+/* =====================================================
+ * Trekrček theme — "Bubblegum & Wine"
+ * Cream background, bubblegum pink period days,
+ * burgundy accents, lime/forest green for fertility.
+ * ===================================================== */
+
+:root {
+  --font-body: 'Rethink Sans Variable', 'Rethink Sans', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+
+  --text-rgb: 59, 10, 18;             /* #3B0A12 wine-brown */
+  --text-secondary-rgb: 125, 90, 96;  /* muted wine */
+  --bg-rgb: 251, 243, 236;            /* #FBF3EC cream */
+  --surface-rgb: 244, 231, 222;       /* darker cream */
+  --period-rgb: 124, 0, 55;           /* #7C0037 burgundy (accents) */
+  --pink-rgb: 248, 169, 204;          /* #F8A9CC bubblegum (period days) */
+  --sun-rgb: 255, 209, 46;            /* #FFD12E sunflower */
+  --lime-rgb: 211, 244, 74;           /* #D3F44A lime */
+  --today-rgb: 124, 0, 55;
+  --fertile-rgb: 11, 90, 67;          /* #0B5A43 forest green */
+  --ovulation-rgb: 11, 90, 67;
+
+  --color-pink: rgb(var(--pink-rgb));
+  --color-lime: rgb(var(--lime-rgb));
+  --color-sun: rgb(var(--sun-rgb));
+  --color-predicted: rgba(var(--pink-rgb), 0.35);
+}
+
+/* Pill-shaped buttons, burgundy with pink text */
+.log-period-btn,
+.btn-primary {
+  background: var(--color-period);
+  color: var(--color-pink);
+  border-radius: 999px;
+}
+
+.log-period-btn.ongoing {
+  background: rgb(var(--text-rgb));
+  color: var(--color-bg);
+}
+
+/* Calendar */
+.calendar-day.today {
+  background: var(--color-sun);
+  color: rgb(var(--text-rgb));
+}
+
+.calendar-day.today::after {
+  background: var(--color-period);
+}
+
+.calendar-day.period,
+.calendar-day.today.period {
+  background: var(--color-pink);
+  color: rgb(var(--text-rgb));
+  font-weight: 600;
+}
+
+.calendar-day.today.period::after {
+  background: var(--color-period);
+}
+
+.calendar-day.predicted-period::after {
+  border-color: rgba(var(--period-rgb), 0.45);
+}
+
+.calendar-day.fertile {
+  background: rgba(var(--lime-rgb), 0.45);
+  color: var(--color-fertile);
+}
+
+.calendar-day.ovulation {
+  background: var(--color-ovulation);
+  color: var(--color-lime);
+}
+
+.calendar-day.predicted-fertile::after,
+.calendar-day.predicted-ovulation::after {
+  border-color: rgba(var(--fertile-rgb), 0.4);
+}
+
+/* Date picker */
+.picker-day.selected,
+.picker-day.selected:hover,
+.picker-day.range-start,
+.picker-day.range-end {
+  background: var(--color-pink);
+  color: rgb(var(--text-rgb));
+}
+
+.picker-day.existing-period {
+  background: rgba(var(--pink-rgb), 0.4);
+  color: rgb(var(--text-rgb));
+}
+
+/* Legend and history dots */
+.legend-dot.period,
+.dot-period {
+  background: var(--color-pink);
+}
+
+.legend-dot.fertile,
+.dot-fertile {
+  background: var(--color-lime);
+}
+
+.legend-dot.ovulation,
+.dot-ovulation {
+  background: var(--color-ovulation);
+}
+
+.mini-day.fertile,
+.mini-day.ovulation {
+  color: var(--color-fertile);
+}
+
+/* Edit mode: selected days stay burgundy with a white check, also on today */
+.edit-day.selected,
+.edit-day.selected.today {
+  background: rgba(var(--period-rgb), 0.85);
+  color: white;
 }
