@@ -1,6 +1,5 @@
 import { useMemo, memo } from 'react';
 import { parseISO, format, differenceInDays } from 'date-fns';
-import { ru } from 'date-fns/locale/ru';
 import { usePeriodStore } from '../stores/periodStore';
 import { useI18n } from '../i18n/context';
 import type { CycleInfo } from '../types';
@@ -81,8 +80,8 @@ const DotBarLegend = memo(function DotBarLegend() {
 });
 
 const CycleHistoryItem = memo(function CycleHistoryItem({ cycle }: { cycle: CycleInfo }) {
-  const { t, lang } = useI18n();
-  const locale = lang === 'ru' ? ru : undefined;
+  const { t } = useI18n();
+  const locale = undefined;
   const startFormatted = format(parseISO(cycle.startDate), 'MMM d', { locale });
   const endFormatted = cycle.endDate
     ? format(parseISO(cycle.endDate), 'MMM d', { locale })

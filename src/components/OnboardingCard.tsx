@@ -6,27 +6,12 @@ interface Props {
 }
 
 export default function OnboardingCard({ onImport, onLogFirst }: Props) {
-  const { lang, setLang, t } = useI18n();
+  const { t } = useI18n();
 
   return (
     <div className="onboarding-card">
       <h2 className="onboarding-title">{t('onboarding.welcome')}</h2>
       <p className="onboarding-subtitle">{t('onboarding.subtitle')}</p>
-
-      <div className="onboarding-lang-picker">
-        <button
-          className={`onboarding-lang-btn ${lang === 'ru' ? 'active' : ''}`}
-          onClick={() => setLang('ru')}
-        >
-          Русский
-        </button>
-        <button
-          className={`onboarding-lang-btn ${lang === 'en' ? 'active' : ''}`}
-          onClick={() => setLang('en')}
-        >
-          English
-        </button>
-      </div>
 
       <div className="onboarding-buttons">
         <button className="btn-primary" onClick={onImport}>

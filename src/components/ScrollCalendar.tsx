@@ -21,7 +21,7 @@ import { translations } from '../i18n/translations';
 import { toDateString } from '../utils';
 import { getDayCircleClass } from './calendarUtils';
 import type { CalendarDateSets } from '../services/calendarSets';
-import type { CalendarViewMode, Period } from '../types';
+import type { CalendarViewMode, Language, Period } from '../types';
 import YearView from './YearView';
 
 export interface PeriodChange {
@@ -268,7 +268,7 @@ interface MonthProps {
   mode: 'readonly' | 'edit';
   selectedDays?: Set<string>;
   onDayClick?: (dateStr: string) => void;
-  lang: string;
+  lang: Language;
 }
 
 const ScrollCalendarMonth = memo(function ScrollCalendarMonth({
@@ -281,7 +281,7 @@ const ScrollCalendarMonth = memo(function ScrollCalendarMonth({
   onDayClick,
   lang,
 }: MonthProps) {
-  const monthNames = translations[lang as 'ru' | 'en']['cal.months'] as readonly string[];
+  const monthNames = translations[lang]['cal.months'] as readonly string[];
   const monthIdx = month.getMonth();
   const year = getYear(month);
   const title = `${monthNames[monthIdx]} ${year}`;
@@ -337,7 +337,7 @@ const ScrollCalendarMonth = memo(function ScrollCalendarMonth({
                     onClick={isCurrentMonth && !isFuture ? () => onDayClick?.(dateStr) : undefined}
                     ref={isToday ? todayRef : undefined}
                   >
-                    {isToday && <span className="today-label-text">{translations[lang as 'ru' | 'en']['cal.today'] as string}</span>}
+                    {isToday && <span className="today-label-text">{translations[lang]['cal.today'] as string}</span>}
                     <span>{isCurrentMonth ? format(day, 'd') : ''}</span>
                     {isSelected && isCurrentMonth && (
                       <svg className="check-overlay" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#fff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>

@@ -1,5 +1,4 @@
 import { parseISO, formatDistanceToNow } from 'date-fns';
-import { ru } from 'date-fns/locale/ru';
 import { usePeriodStore } from '../stores/periodStore';
 import { useI18n } from '../i18n/context';
 
@@ -13,7 +12,7 @@ export default function PhaseStatus({ dimmed }: Props) {
   const phase = usePeriodStore((s) => s.phase);
   const isEmpty = usePeriodStore((s) => s.periods.length === 0);
   const isSingle = usePeriodStore((s) => s.periods.length === 1);
-  const { t, lang } = useI18n();
+  const { t } = useI18n();
 
   // Empty state — dimmed "No data"
   if (isEmpty) {
@@ -26,7 +25,7 @@ export default function PhaseStatus({ dimmed }: Props) {
 
   // Stale data: last period was way too long ago
   if (cycleDay?.stale) {
-    const ago = formatDistanceToNow(parseISO(cycleDay.lastPeriodDate), { addSuffix: true, locale: lang === 'ru' ? ru : undefined });
+    const ago = formatDistanceToNow(parseISO(cycleDay.lastPeriodDate), { addSuffix: true, locale: undefined });
     return (
       <div className="phase-status">
         <div className="phase-name">{t('status.no_recent')}</div>

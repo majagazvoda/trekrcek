@@ -1456,35 +1456,10 @@ input:focus-visible {
 
 /* ============= Language Switcher ============= */
 
-.lang-switcher {
-  display: flex;
-  align-items: center;
-  gap: 0.3em;
-  font-size: 0.8125em;
-  font-weight: 500;
-  margin-left: var(--sp-s);
-}
 
-.lang-switcher span {
-  cursor: pointer;
-  color: rgba(var(--text-rgb), 0.25);
-  transition: color 0.5s ease;
-}
 
-.lang-switcher span.active {
-  color: var(--color-text);
-  font-weight: 600;
-}
 
-.lang-switcher span:hover:not(.active) {
-  color: rgba(var(--text-rgb), 0.5);
-  transition: color 0s;
-}
 
-.lang-divider {
-  cursor: default !important;
-  color: rgba(var(--text-rgb), 0.12) !important;
-}
 
 /* ============= Header (Sprint 2) ============= */
 
@@ -1617,30 +1592,8 @@ input:focus-visible {
   line-height: 1.4;
 }
 
-.onboarding-lang-picker {
-  display: flex;
-  gap: var(--sp-xs);
-  justify-content: center;
-  margin-bottom: var(--sp-l);
-}
 
-.onboarding-lang-btn {
-  padding: 0.4em 1em;
-  font-size: 0.875em;
-  font-weight: 500;
-  border-radius: var(--radius-s);
-  background: rgba(var(--text-rgb), 0.04);
-  color: var(--color-text-secondary);
-  border: none;
-  cursor: pointer;
-  transition: background 0.15s ease, color 0.15s ease;
-}
 
-.onboarding-lang-btn.active {
-  background: rgba(var(--period-rgb), 0.1);
-  color: var(--color-period);
-  font-weight: 600;
-}
 
 .onboarding-buttons {
   display: flex;

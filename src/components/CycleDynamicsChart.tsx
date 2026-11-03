@@ -1,6 +1,5 @@
 import { useMemo } from 'react';
 import { parseISO, format } from 'date-fns';
-import { ru } from 'date-fns/locale/ru';
 import { usePeriodStore } from '../stores/periodStore';
 import { useI18n } from '../i18n/context';
 
@@ -36,8 +35,8 @@ function smoothPath(points: { x: number; y: number }[]): string {
 
 export default function CycleDynamicsChart() {
   const cycles = usePeriodStore((s) => s.cycles);
-  const { t, lang } = useI18n();
-  const locale = lang === 'ru' ? ru : undefined;
+  const { t } = useI18n();
+  const locale = undefined;
 
   const data = useMemo((): DataPoint[] => {
     const valid = cycles

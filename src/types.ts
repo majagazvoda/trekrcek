@@ -69,4 +69,4 @@ export type Screen = 'home' | 'calendar' | 'edit' | 'settings' | 'info';
 export type CalendarViewMode = 'month' | 'year';
 
 /** Supported languages */
-export type Language = 'ru' | 'en';
+export type Language = 'en';

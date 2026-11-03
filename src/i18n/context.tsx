@@ -13,10 +13,7 @@ const I18nContext = createContext<I18nContextValue>(null!);
 const STORAGE_KEY = 'lua-language';
 
 export function I18nProvider({ children }: { children: React.ReactNode }) {
-  const [lang, setLangState] = useState<Language>(() => {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    return (stored === 'en' || stored === 'ru') ? stored : 'ru';
-  });
+  const [lang, setLangState] = useState<Language>('en');
 
   const setLang = useCallback((newLang: Language) => {
     setLangState(newLang);

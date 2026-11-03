@@ -15,7 +15,7 @@ export default function Settings({ onClose }: Props) {
   const [message, setMessage] = useState('');
   const fileRef = useRef<HTMLInputElement>(null);
   const loadPeriods = usePeriodStore((s) => s.loadPeriods);
-  const { t, lang } = useI18n();
+  const { t } = useI18n();
   const { status, lastSyncedAt, error, connected } = useSyncStore();
 
   const handleExport = async () => {
@@ -99,7 +99,7 @@ export default function Settings({ onClose }: Props) {
       syncStatusText = t('sync.sync_failed', { error });
       syncDotClass = 'sync-dot error';
     } else if (status === 'success' && lastSyncedAt) {
-      syncStatusText = t('sync.last_synced', { time: formatRelativeTime(lastSyncedAt, lang) });
+      syncStatusText = t('sync.last_synced', { time: formatRelativeTime(lastSyncedAt) });
       syncDotClass = 'sync-dot success';
     } else {
       syncStatusText = t('sync.idle');
