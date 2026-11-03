@@ -2263,3 +2263,31 @@ input:focus-visible {
 .f-cream { fill: rgb(var(--cream-rgb)); }
 .s-green { fill: none; stroke: rgb(var(--green-rgb)); stroke-width: 5; stroke-linecap: round; }
 .f-white { fill: #fff; opacity: 0.85; }
+
+/* Cycle wheel on the home screen */
+.phase-status:has(.home-wheel-btn) {
+  padding-top: var(--sp-m);
+}
+
+.home-wheel-btn {
+  display: block;
+  width: 58%;
+  max-width: 220px;
+  margin: 0 auto var(--sp-xs);
+  border-radius: 50%;
+  transition: transform 0.2s ease;
+}
+
+.home-wheel-btn:active {
+  transform: scale(0.97);
+}
+
+.home-wheel-btn .cycle-wheel {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+}
+
+.wheel-seg.static {
+  cursor: inherit;
+}

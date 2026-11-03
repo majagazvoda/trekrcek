@@ -1,6 +1,7 @@
 import { parseISO, formatDistanceToNow } from 'date-fns';
 import { usePeriodStore } from '../stores/periodStore';
 import { useI18n } from '../i18n/context';
+import { CycleWheel } from './PhaseGraphics';
 
 interface Props {
   dimmed?: boolean;
@@ -61,7 +62,6 @@ export default function PhaseStatus({ dimmed, onOpenGuide }: Props) {
 
   // Normal state with phase
   const phaseKey = phase ? `phase.${phase.phase}` : '';
-  const phaseColorClass = phase ? phase.phase : '';
 
   // Build countdown text
   let countdownText = '';
@@ -81,9 +81,17 @@ export default function PhaseStatus({ dimmed, onOpenGuide }: Props) {
 
   return (
     <div className="phase-status">
-      {phase && (
-        <div className={`phase-name ${phaseColorClass}`}>{t(phaseKey)}</div>
-      )}
+      {phase ? (
+        onOpenGuide ? (
+          <button className="home-wheel-btn" onClick={onOpenGuide} aria-label={`${t(phaseKey)} — open phase guide`}>
+            <CycleWheel selected={phase.phase} current={phase.phase} subtitle="Tap for more" />
+          </button>
+        ) : (
+          <div className="home-wheel-btn">
+            <CycleWheel selected={phase.phase} current={phase.phase} subtitle={t(phaseKey)} />
+          </div>
+        )
+      ) : null}
       <div className="phase-detail">
         {cycleDay && (
           <>
@@ -97,9 +105,7 @@ export default function PhaseStatus({ dimmed, onOpenGuide }: Props) {
           </>
         )}
       </div>
-      {onOpenGuide && (
-        <GuideLink onClick={onOpenGuide} label={phase ? 'Read about this phase' : 'Phase guide'} />
-      )}
+      {onOpenGuide && !phase && <GuideLink onClick={onOpenGuide} label="Phase guide" />}
     </div>
   );
 }

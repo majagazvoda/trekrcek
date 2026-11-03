@@ -27,10 +27,11 @@ function arcPath(cx: number, cy: number, r: number, start: number, end: number) 
 interface WheelProps {
   selected: CyclePhase;
   current: CyclePhase | null;
-  onSelect: (phase: CyclePhase) => void;
+  onSelect?: (phase: CyclePhase) => void;
+  subtitle?: string;
 }
 
-export function CycleWheel({ selected, current, onSelect }: WheelProps) {
+export function CycleWheel({ selected, current, onSelect, subtitle }: WheelProps) {
   const total = PHASE_ORDER.reduce((sum, p) => sum + WHEEL_DAYS[p], 0);
   const gap = 4;
   let angle = 0;
@@ -47,16 +48,16 @@ export function CycleWheel({ selected, current, onSelect }: WheelProps) {
           <path
             key={phase}
             d={arcPath(100, 100, 78, start, end)}
-            className={`wheel-seg wheel-${phase}${isSelected ? ' is-selected' : ''}`}
-            onClick={() => onSelect(phase)}
-            role="button"
-            aria-label={PHASE_GUIDE[phase].name}
+            className={`wheel-seg wheel-${phase}${isSelected ? ' is-selected' : ''}${onSelect ? '' : ' static'}`}
+            onClick={onSelect ? () => onSelect(phase) : undefined}
+            role={onSelect ? 'button' : undefined}
+            aria-label={onSelect ? PHASE_GUIDE[phase].name : undefined}
           />
         );
       })}
       <text x="100" y="96" className="wheel-title">{PHASE_GUIDE[selected].short}</text>
       <text x="100" y="118" className="wheel-sub">
-        {current === selected ? 'You are here' : 'Tap a phase'}
+        {subtitle ?? (current === selected ? 'You are here' : 'Tap a phase')}
       </text>
     </svg>
   );
