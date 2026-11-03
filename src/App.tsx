@@ -10,9 +10,6 @@ import { downloadOnStart, uploadAfterMutation, initSync, useSyncStore, weeklyBac
 import { useI18n } from './i18n/context';
 import PhaseStatus from './components/PhaseStatus';
 import HomeCalendar from './components/HomeCalendar';
-import FluctuationSnippet from './components/FluctuationSnippet';
-import CycleDynamicsChart from './components/CycleDynamicsChart';
-import CycleHistory from './components/CycleHistory';
 import OnboardingCard from './components/OnboardingCard';
 import LanguageSwitcher from './components/LanguageSwitcher';
 import ScrollCalendar from './components/ScrollCalendar';
@@ -46,7 +43,16 @@ export default function App() {
   }, []);
 
   // Navigation handlers
+  const [calendarOrigin, setCalendarOrigin] = useState<Screen>('home');
+
   const handleOpenCalendar = useCallback(() => {
+    setCalendarOrigin('home');
+    setCalendarMode('month');
+    setScreen('calendar');
+  }, []);
+
+  const handleOpenCalendarFromInfo = useCallback(() => {
+    setCalendarOrigin('info');
     setCalendarMode('month');
     setScreen('calendar');
   }, []);
@@ -57,8 +63,8 @@ export default function App() {
   }, []);
 
   const handleCloseCalendar = useCallback(() => {
-    setScreen('home');
-  }, []);
+    setScreen(calendarOrigin);
+  }, [calendarOrigin]);
 
   const handleCloseEdit = useCallback(() => {
     setScreen(editOrigin);
@@ -128,7 +134,7 @@ export default function App() {
   if (screen === 'info') {
     return (
       <div className="app">
-        <KeyInfo onClose={() => setScreen('home')} />
+        <KeyInfo onClose={() => setScreen('home')} onOpenCalendar={handleOpenCalendarFromInfo} />
       </div>
     );
   }
@@ -234,22 +240,6 @@ export default function App() {
             >
               {t('home.log_period')}
             </button>
-
-            {/* Below the fold */}
-            <div className="section-divider" />
-            <FluctuationSnippet />
-
-            <div className="section-divider" />
-            <CycleDynamicsChart />
-
-            <div className="section-divider" />
-            <button className="section-title-link" onClick={handleOpenCalendar}>
-              {t('home.cycle_history')}
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <polyline points="9 18 15 12 9 6" />
-              </svg>
-            </button>
-            <CycleHistory limit={3} />
           </>
         )}
       </div>

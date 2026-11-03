@@ -3,16 +3,20 @@ import { format, parseISO } from 'date-fns';
 import { ru } from 'date-fns/locale/ru';
 import { usePeriodStore } from '../stores/periodStore';
 import { useI18n } from '../i18n/context';
+import FluctuationSnippet from './FluctuationSnippet';
+import CycleDynamicsChart from './CycleDynamicsChart';
+import CycleHistory from './CycleHistory';
 
 interface Props {
   onClose: () => void;
+  onOpenCalendar: () => void;
 }
 
 function average(values: number[]): number {
   return Math.round(values.reduce((a, b) => a + b, 0) / values.length);
 }
 
-export default function KeyInfo({ onClose }: Props) {
+export default function KeyInfo({ onClose, onOpenCalendar }: Props) {
   const cycles = usePeriodStore((s) => s.cycles);
   const prediction = usePeriodStore((s) => s.prediction);
   const { t, lang } = useI18n();
@@ -118,6 +122,22 @@ export default function KeyInfo({ onClose }: Props) {
               </div>
             </div>
 
+            <div className="section-divider" />
+            <FluctuationSnippet />
+
+            <div className="section-divider" />
+            <CycleDynamicsChart />
+
+            <div className="section-divider" />
+            <button className="section-title-link" onClick={onOpenCalendar}>
+              {t('home.cycle_history')}
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <polyline points="9 18 15 12 9 6" />
+              </svg>
+            </button>
+            <CycleHistory />
+
+            <div className="section-divider" />
             <div className="settings-disclaimer">{t('info.note')}</div>
           </>
         )}
