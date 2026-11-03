@@ -13,6 +13,7 @@ import OnboardingCard from './components/OnboardingCard';
 import ScrollCalendar from './components/ScrollCalendar';
 import Settings from './components/Settings';
 import KeyInfo from './components/KeyInfo';
+import Greeting from './components/Greeting';
 import PhaseGuide from './components/PhaseGuide';
 import type { PeriodChange } from './components/ScrollCalendar';
 import type { Screen, CalendarViewMode } from './types';
@@ -42,16 +43,7 @@ export default function App() {
   }, []);
 
   // Navigation handlers
-  const [calendarOrigin, setCalendarOrigin] = useState<Screen>('home');
-
   const handleOpenCalendar = useCallback(() => {
-    setCalendarOrigin('home');
-    setCalendarMode('month');
-    setScreen('calendar');
-  }, []);
-
-  const handleOpenCalendarFromInfo = useCallback(() => {
-    setCalendarOrigin('info');
     setCalendarMode('month');
     setScreen('calendar');
   }, []);
@@ -62,8 +54,8 @@ export default function App() {
   }, []);
 
   const handleCloseCalendar = useCallback(() => {
-    setScreen(calendarOrigin);
-  }, [calendarOrigin]);
+    setScreen('home');
+  }, []);
 
   const handleCloseEdit = useCallback(() => {
     setScreen(editOrigin);
@@ -138,15 +130,6 @@ export default function App() {
     );
   }
 
-  // Key info screen
-  if (screen === 'info') {
-    return (
-      <div className="app">
-        <KeyInfo onClose={() => setScreen('home')} onOpenCalendar={handleOpenCalendarFromInfo} />
-      </div>
-    );
-  }
-
   // Calendar screen (read-only)
   if (screen === 'calendar') {
     return (
@@ -198,13 +181,6 @@ export default function App() {
         </div>
         <div className="header-date">{format(today, 'd MMMM yyyy', { locale: undefined })}</div>
         <div className="header-right">
-        <button className="calendar-icon-btn" onClick={() => setScreen('info')} aria-label={t('info.open')}>
-          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            <circle cx="12" cy="12" r="10" />
-            <line x1="12" y1="16" x2="12" y2="12" />
-            <line x1="12" y1="8" x2="12.01" y2="8" />
-          </svg>
-        </button>
         <button className="calendar-icon-btn" onClick={handleOpenCalendar} aria-label={t('home.cycle_history')}>
           <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
@@ -217,6 +193,9 @@ export default function App() {
       </header>
 
       <div className="app-content">
+        {/* Greeting — a new one each time the app opens */}
+        <Greeting />
+
         {/* Phase status — dimmed when empty */}
         <PhaseStatus dimmed={isEmpty} onOpenGuide={() => setScreen('guide')} />
 
@@ -247,6 +226,9 @@ export default function App() {
             >
               {t('home.log_period')}
             </button>
+
+            {/* Statistics, cycle dynamics and cycle history */}
+            <KeyInfo onOpenCalendar={handleOpenCalendar} />
           </>
         )}
       </div>

@@ -51,8 +51,6 @@ export const translations = {
     'stats.avg_cycle': 'Average cycle length: ~{days} days',
 
     // Key info screen
-    'info.title': 'Key info',
-    'info.open': 'Key info',
 
     'onboarding.import': 'Import data',
     'onboarding.log_first': 'Log first period',
