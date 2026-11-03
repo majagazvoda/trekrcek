@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { usePeriodStore } from '../stores/periodStore';
 import { PHASE_GUIDE, PHASE_ORDER } from '../data/phaseGuide';
-import { CycleWheel, PhaseIllustration, SectionIcon } from './PhaseGraphics';
+import { PhaseIllustration, SectionIcon } from './PhaseGraphics';
 import type { CyclePhase } from '../types';
 
 interface Props {
@@ -69,8 +69,6 @@ export default function PhaseGuide({ initialPhase, onClose }: Props) {
             </button>
           ))}
         </div>
-
-        <CycleWheel selected={selected} current={currentPhase} onSelect={setSelected} />
 
         <div className={`guide-hero hero-${selected}`}>
           <PhaseIllustration phase={selected} />
